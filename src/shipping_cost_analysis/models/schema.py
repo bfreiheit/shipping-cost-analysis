@@ -12,6 +12,10 @@ class Customer(Base):
     latitude = Column(Float)
     longitude = Column(Float)
 
+    # Relationship
+    transactions = relationship("Transactions", back_populates="customer")
+    region = relationship("Region", back_populates="customers")
+
 class Product(Base):
     __tablename__ = 'dim_product'
     stock_code = Column(String, primary_key=True)
@@ -21,11 +25,17 @@ class Product(Base):
     description = Column(String)
     category = Column(String)
 
+    # Relationship
+    transactions = relationship("Transactions", back_populates="product")
+
 class Region(Base):
     __tablename__ = 'dim_region'
     order_state = Column(String(2), primary_key=True)
     state = Column(String)
     region = Column(String)
+
+    # Relationship
+    customers = relationship("Customer", back_populates="region")
 
     __table_args__ = (
         CheckConstraint("char_length(order_state) = 2", name="check_order_state_length"),
@@ -42,3 +52,7 @@ class Transactions(Base):
     quantity = Column(Integer)
     sales = Column(Float)
     unit_price = Column(Float)
+
+    # Relationships
+    customer = relationship("Customer", back_populates="transactions")
+    product = relationship("Product", back_populates="transactions")
