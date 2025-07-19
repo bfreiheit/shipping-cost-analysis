@@ -1,10 +1,19 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, CheckConstraint
+from sqlalchemy import (
+    CheckConstraint,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+)
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
+
 class Region(Base):
-    __tablename__ = 'dim_region'
+    __tablename__ = "dim_region"
     order_state = Column(String(2), primary_key=True)
     state = Column(String)
     region = Column(String)
@@ -13,15 +22,18 @@ class Region(Base):
     customers = relationship("Customer", back_populates="region")
     # Add constraint
     __table_args__ = (
-        CheckConstraint("char_length(order_state) = 2", name="check_order_state_length"),
+        CheckConstraint(
+            "char_length(order_state) = 2", name="check_order_state_length"
+        ),
     )
 
+
 class Customer(Base):
-    __tablename__ = 'dim_customer'
+    __tablename__ = "dim_customer"
     customer_id = Column(Integer, primary_key=True)
     order_city = Column(String)
     order_postal = Column(String)
-    order_state = Column(String(2), ForeignKey('dim_region.order_state'))
+    order_state = Column(String(2), ForeignKey("dim_region.order_state"))
     latitude = Column(Float)
     longitude = Column(Float)
 
@@ -29,8 +41,9 @@ class Customer(Base):
     transactions = relationship("Transactions", back_populates="customer")
     region = relationship("Region", back_populates="customers")
 
+
 class Product(Base):
-    __tablename__ = 'dim_product'
+    __tablename__ = "dim_product"
     stock_code = Column(String, primary_key=True)
     weight = Column(Float)
     landed_cost = Column(Float)
@@ -41,12 +54,13 @@ class Product(Base):
     # Relationship
     transactions = relationship("Transactions", back_populates="product")
 
+
 class Transactions(Base):
-    __tablename__ = 'fact_transactions'
+    __tablename__ = "fact_transactions"
     id = Column(Integer, primary_key=True)
     transaction_date = Column(DateTime)
-    customer_id = Column(Integer, ForeignKey('dim_customer.customer_id'))    
-    stock_code = Column(String, ForeignKey('dim_product.stock_code'))
+    customer_id = Column(Integer, ForeignKey("dim_customer.customer_id"))
+    stock_code = Column(String, ForeignKey("dim_product.stock_code"))
     invoice_no = Column(Integer)
     quantity = Column(Integer)
     sales = Column(Float)

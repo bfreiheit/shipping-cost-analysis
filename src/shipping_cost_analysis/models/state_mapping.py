@@ -50,7 +50,7 @@ us_state_codes = {
     "WA": "Washington",
     "WV": "West Virginia",
     "WI": "Wisconsin",
-    "WY": "Wyoming"
+    "WY": "Wyoming",
 }
 
 us_states = {
@@ -105,5 +105,5 @@ us_states = {
     "WASHINGTON": "WA",
     "WEST VIRGINIA": "WV",
     "WISCONSIN": "WI",
-    "WYOMING": "WY"    
+    "WYOMING": "WY",
 }
