@@ -25,13 +25,13 @@ freeze:
 	$(PIP) freeze
 
 lint:
-	$(VENV_DIR)/bin/flake8 src notebooks tests
+	$(VENV_DIR)/bin/flake8 src notebooks
 
 format:
-	$(VENV_DIR)/bin/black src notebooks tests
+	$(VENV_DIR)/bin/black src notebooks
 
 isort:
-	$(VENV_DIR)/bin/isort src tests
+	$(VENV_DIR)/bin/isort src
 	$(VENV_DIR)/bin/nbqa isort notebooks
 
 check:
@@ -48,7 +48,7 @@ help:
 	@echo "  make notebook   → starts Jupyter Notebook in ./notebooks"
 	@echo "  make clean      → deletes __pycache__ directories"
 	@echo "  make freeze     → lists installed packages"
-	@echo "  make lint       → runs flake8 on src, notebooks, tests"
+	@echo "  make lint       → runs flake8 on src, notebooks"
 	@echo "  make format     → auto-formats with black"
 	@echo "  make isort      → sorts imports with isort"
 	@echo "  make check      → runs lint, foramt and isort"
