@@ -3,6 +3,19 @@ from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
+class Region(Base):
+    __tablename__ = 'dim_region'
+    order_state = Column(String(2), primary_key=True)
+    state = Column(String)
+    region = Column(String)
+
+    # Relationship
+    customers = relationship("Customer", back_populates="region")
+    # Add constraint
+    __table_args__ = (
+        CheckConstraint("char_length(order_state) = 2", name="check_order_state_length"),
+    )
+
 class Customer(Base):
     __tablename__ = 'dim_customer'
     customer_id = Column(Integer, primary_key=True)
@@ -28,25 +41,11 @@ class Product(Base):
     # Relationship
     transactions = relationship("Transactions", back_populates="product")
 
-class Region(Base):
-    __tablename__ = 'dim_region'
-    order_state = Column(String(2), primary_key=True)
-    state = Column(String)
-    region = Column(String)
-
-    # Relationship
-    customers = relationship("Customer", back_populates="region")
-
-    __table_args__ = (
-        CheckConstraint("char_length(order_state) = 2", name="check_order_state_length"),
-    )
-
 class Transactions(Base):
     __tablename__ = 'fact_transactions'
     id = Column(Integer, primary_key=True)
     transaction_date = Column(DateTime)
-    customer_id = Column(Integer, ForeignKey('dim_customer.customer_id'))
-    description = Column(String)
+    customer_id = Column(Integer, ForeignKey('dim_customer.customer_id'))    
     stock_code = Column(String, ForeignKey('dim_product.stock_code'))
     invoice_no = Column(Integer)
     quantity = Column(Integer)
