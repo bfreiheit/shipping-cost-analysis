@@ -1,13 +1,11 @@
 import os
-
-from sqlalchemy import inspect
-from sqlalchemy.exc import SQLAlchemyError
-from typing import List
 import traceback
+from typing import List
 
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.engine import Engine
+from sqlalchemy.exc import SQLAlchemyError
 
 load_dotenv(override=True)
 
@@ -28,7 +26,7 @@ def get_engine() -> "Engine":
 def recreate_tables(table_classes: List) -> None:
     """
     Deletes and creates tables based on SQLAlchemy-schemas.
-    
+
     Args:
         table_classes (List): list of SQLAlchemy-schema (e.g. [Customer, Product]).
     """
@@ -54,4 +52,3 @@ def recreate_tables(table_classes: List) -> None:
             except (AttributeError, SQLAlchemyError) as e:
                 print(f"Error for table {table}: {e}")
                 traceback.print_exc()
-
