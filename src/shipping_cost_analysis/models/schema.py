@@ -69,3 +69,32 @@ class Transactions(Base):
     # Relationships
     customer = relationship("Customer", back_populates="transactions")
     product = relationship("Product", back_populates="transactions")
+
+
+class Ecommerce(Base):
+    __tablename__ = "ecommerce"
+    id = Column(Integer, primary_key=True)
+
+    customer_id = Column(Integer)
+    order_city = Column(String)
+    order_postal = Column(String)
+    order_state = Column(String(2))
+    latitude = Column(Float)
+    longitude = Column(Float)
+
+    transaction_date = Column(DateTime)
+    customer_id = Column(Integer)
+    stock_code = Column(String)
+    invoice_no = Column(Integer)
+    quantity = Column(Integer)
+    sales = Column(Float)
+    unit_price = Column(Float)
+
+    weight = Column(Float)
+    landed_cost = Column(Float)
+    shipping_cost_1000_r = Column(Float)
+    description = Column(String)
+    category = Column(String)
+
+    state = Column(String)
+    region = Column(String)
