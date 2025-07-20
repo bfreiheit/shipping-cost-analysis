@@ -1,5 +1,7 @@
 import pandas as pd
+
 from shipping_cost_analysis.models import state_mapping
+
 
 def missing_data(df: pd.DataFrame) -> pd.DataFrame:
     total = df.isnull().sum().sort_values(ascending=False)
@@ -10,6 +12,7 @@ def missing_data(df: pd.DataFrame) -> pd.DataFrame:
     )
     Percentage = Percentage[Percentage.apply(lambda x: x > 0.00)]
     return pd.concat([total, Percentage], axis=1, keys=["Total", "Percentage Missing"])
+
 
 def normalize_state(val):
     valid_state_codes = set(state_mapping.us_states.values())
