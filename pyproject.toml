@@ -21,7 +21,8 @@ dependencies = [
   "scipy",
   "python-dotenv",
   "psycopg2-binary",
-  "SQLAlchemy"
+  "SQLAlchemy",
+  "openpyxl"
 ]
 
 [tool.setuptools]
