@@ -12,7 +12,6 @@ This project analyzes and compares real-world and hypothetical shipping cost mod
 - Python (Pandas, SQLAlchemy)
 - PostgreSQL
 - Tableau (for visualization)
-- (Optional) Scikit-learn or XGBoost
 
 ## Key Questions
 - How can we reduce shipping cost per order?
