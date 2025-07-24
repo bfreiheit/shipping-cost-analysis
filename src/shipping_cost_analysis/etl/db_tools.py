@@ -28,11 +28,9 @@ def drop_all_tables():
     Base.metadata.drop_all(bind=engine)
     print("All tables dropped.")
 
+
 def create_all_tables():
     engine = get_engine()
     print("Creating all tables...")
     Base.metadata.create_all(bind=engine)
     print("All tables created.")
-
-
-
